@@ -1,18 +1,23 @@
 <?php
-//contains PDO object called $pdo
+session_start();
+
+//initializes PDO object called $pdo
 require_once "pdo.php";
 
 //email = lana@fake.com
 //password = password
 //stored password is hashed with this salt
 $salt='XyZzy12*_';
-$failure=false;
 
 if (isset($_POST['email']) && isset($_POST['pass'])) {
   if (strlen($_POST['email']) < 1 || strlen($_POST['pass']) < 1) {
-    $failure="Email and password are required";
+    $_SESSION['failure']="Email and password are required";
+    header('Location: login.php');
+    return;
   } elseif (strpos($_POST['email'], '@') === false) {
-    $failure="Please enter a valid email address";
+    $_SESSION['failure']="Please enter a valid email address";
+    header('Location: login.php');
+    return;
   } else {
     $check=hash('md5', $salt.$_POST['pass']);
     $sql="SELECT name FROM users WHERE email = :em AND password = :pw";
@@ -25,11 +30,17 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row === false) {
-      $failure = "Email or password is incorrect.";
+      $_SESSION['failure'] = "Email or password is incorrect.";
       error_log("Login fail ".$_POST['email']." $check");
+      header('Location: login.php');
+      return;
     } else {
+      $_SESSION['user'] = $_POST['email'];
       error_log("Login success ".$_POST['email']);
+      //need to change the redirect location once those pages exist
+      //view.php and add.php
       header("Location: autos.php?user=".urlencode($row['name']));
+      return;
     }
   }
 }
@@ -41,8 +52,9 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
 <body>
   <h1>Please Log In</h1>
   <?php
-  if ($failure !== false) {
-    echo '<p style="color:red;">'.htmlentities($failure).'</p>';
+  if (isset($_SESSION['failure'])) {
+    echo '<p style="color:red;">'.htmlentities($_SESSION['failure']).'</p>';
+    unset($_SESSION['failure']);
   }
   ?>
   <form method="post">
