@@ -61,6 +61,8 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
     <p>Email: <input type="text" name="email"></p>
     <p>Password: <input type="password" name="pass"></p>
     <p><input type="submit" value="Log in">
+      <a href="index.php">Cancel</a>
+    </p>
   </form>
 </body>
 </html>
