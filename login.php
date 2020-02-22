@@ -37,10 +37,9 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
     } else {
       $_SESSION['user'] = urlencode($row['name']);
       error_log("Login success ".$_POST['email']);
-      //need to change the redirect location once those pages exist
-      //view.php and add.php
-      //header("Location: view.php");
-      header("Location: autos.php?user=".urlencode($row['name']));
+      header("Location: view.php");
+      //old version with single page
+      //header("Location: autos.php?user=".urlencode($row['name']));
       return;
     }
   }
