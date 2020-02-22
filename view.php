@@ -11,7 +11,7 @@ require_once "pdo.php";
   if (!isset($_SESSION['user'])) {
     echo '<p>Please <a href="login.php">log in</a> first.</p>';
   } else { ?>
-    <h1>Welcome!</h1>
+    <h1>Welcome, <?php echo $_SESSION['user']; ?>!</h1>
     <p><a href="add.php">Add New</a> | <a href="logout.php">Log out</a></p>
     <h2>Saved Automobiles</h2>
     <?php
