@@ -1,26 +1,58 @@
 <?php
 session_start();
 require_once "pdo.php";
-?>
 
+if (!isset($_SESSION['user'])) {
+  die('You must be logged in to use this page.');
+}
+
+if (isset($_POST['cancel'])) {
+  header("Location: view.php");
+  return;
+}
+
+if (isset($_POST['make']) && isset($_POST['model']) &&
+    isset($_POST['year']) && isset($_POST['mileage']) ) {
+  if (strlen($_POST['make']) < 1) {
+    $_SESSION['error'] = "Make is required.";
+    header("Location: add.php");
+    return;
+  } elseif (strlen($_POST['model']) < 1) {
+    $_SESSION['error'] = "Model is required.";
+    header("Location: add.php");
+    return;
+  } elseif (!is_numeric($_POST['year'])) {
+    $_SESSION['error'] = "Year must be numeric.";
+    header("Location: add.php");
+    return;
+  } elseif (!is_numeric($_POST['mileage'])) {
+    $_SESSION['error'] = "Mileage must be numeric.";
+    header("Location: add.php");
+    return;
+  } else {
+  }
+}
+?>
 <html>
 <head>
   <title>Automobile Tracker</title>
 </head>
 <body>
+  <h1>Add a New Automobile</h1>
   <?php
-  if (!isset($_SESSION['user'])) {
-    echo '<p>Please <a href="login.php">log in</a> first.</p>';
-  } else { ?>
-    <h1>Add a New Automobile</h1>
-    <form method="post">
-      <p>Make: <input type="text" name="make"></p>
-      <p>Model: <input type="text" name="model"></p>
-      <p>Year: <input type="text" name="year"></p>
-      <p>Mileage: <input type="text" name="mileage"></p>
-      <p><input type="submit" value="Add"> <input type="submit" value="Cancel"></p>
-    </form>
-  <?php
-  } ?>
+  if (isset($_SESSION['error'])) {
+    echo '<p style="color:red;">'.$_SESSION['error']."</p>";
+    unset($_SESSION['error']);
+  }
+  ?>
+  <form method="post">
+    <p>Make: <input type="text" name="make"></p>
+    <p>Model: <input type="text" name="model"></p>
+    <p>Year: <input type="text" name="year"></p>
+    <p>Mileage: <input type="text" name="mileage"></p>
+    <p><input type="submit" value="Add">
+      <input type="submit" value="Cancel" name="cancel">
+    </p>
+  </form>
 </body>
 </html>
