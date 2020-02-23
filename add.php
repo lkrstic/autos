@@ -30,6 +30,18 @@ if (isset($_POST['make']) && isset($_POST['model']) &&
     header("Location: add.php");
     return;
   } else {
+    $sql = "INSERT INTO autos (make, model, year, mileage)
+            VALUES (:make, :model, :year, :mileage)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute(array(
+      ':make' => $_POST['make'],
+      ':model' => $_POST['model'],
+      ':year' => $_POST['year'],
+      ':mileage' => $_POST['mileage']
+      )
+    );
+    header("Location: view.php");
+    return;
   }
 }
 ?>
