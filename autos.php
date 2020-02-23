@@ -1,4 +1,8 @@
 <?php
+/*This file is no longer being used. It is from a previous implementation.
+It can be accessed using a query string ?user=<someone>
+*/
+
 //contains PDO object called $pdo
 require_once "pdo.php";
 
