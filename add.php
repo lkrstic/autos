@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
 }
 
 if (isset($_POST['cancel'])) {
-  header("Location: view.php");
+  header("Location: index.php");
   return;
 }
 
@@ -40,7 +40,8 @@ if (isset($_POST['make']) && isset($_POST['model']) &&
       ':mileage' => $_POST['mileage']
       )
     );
-    header("Location: view.php");
+    $_SESSION['success'] = "Record Added.";
+    header("Location: index.php");
     return;
   }
 }
