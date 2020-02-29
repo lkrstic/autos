@@ -32,11 +32,16 @@ if (!isset($_SESSION['user'])) {
           echo "<td>".$row['model']."</td>";
           echo "<td>".$row['year']."</td>";
           echo "<td>".$row['mileage']."</td>";
-          //echo "<td>".."</td>";
+          echo '<td><a href="edit.php?auto='.$row['autoID'].'">Edit</a> / ';
+          echo '<a href="delete.php?auto='.$row['autoID'].'">Delete</a> </td>';
         echo "</tr>";
       }
     echo "</table>";
+  } else {
+    echo "<p>No automobiles saved yet. Try adding some.</p>";
   }
+  echo '<p><a href="add.php">Add New Entry</a></p>';
+  echo '<p><a href="logout.php">Logout</a></p>';
 }
 ?>
 </body>

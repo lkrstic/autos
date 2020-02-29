@@ -37,7 +37,7 @@ if (isset($_POST['email']) && isset($_POST['pass'])) {
     } else {
       $_SESSION['user'] = urlencode($row['name']);
       error_log("Login success ".$_POST['email']);
-      header("Location: view.php");
+      header("Location: index.php");
       //old version with single page and without sessions
       //header("Location: autos.php?user=".urlencode($row['name']));
       return;
