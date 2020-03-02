@@ -1,6 +1,6 @@
 # autos
-This is a simple "Automobile Tracking" application.
-The user can log in, view saved automobiles, and add their own.
+This is a simple "Automobile Tracking" application demonstrating CRUD.
+The user can log in, view, edit, and delete saved automobiles, as well as add their own.
 
 It assumes the following queries have been run beforehand in a local MySQL database, and at least one user exists:
 
