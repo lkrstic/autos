@@ -1,4 +1,6 @@
 <?php
+/*This file is no longer being used. It is from a previous implementation
+*/
 session_start();
 require_once "pdo.php";
 if (!isset($_SESSION['user'])) {
